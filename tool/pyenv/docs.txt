@@ -1,0 +1,6 @@
+1). run tox -e py34
+ appare error:
+ db type could not be determined
+ 
+ solution:
+  rm -rf .testrepository

@@ -1,0 +1,130 @@
+#!/usr/bin/env python
+# encoding=utf-8
+
+from oslo_config import cfg
+
+import sqlalchemy as sql
+from sqlalchemy import orm
+
+
+# 声明配置选项
+opts = [
+    cfg.StrOpt(
+        'connection',
+        default='mysql://root:stack@localhost/sql1 ?charset=utf-8'
+    )
+]
+
+opts_group = cfg.OptGroup(
+    name='database'
+)
+
+CONF = cfg.CONF
+# 注册配置项
+CONF.register_group(opts_group)
+CONF.register_opts(opts, opts_group)
+# 声明配置文件
+CONF(default_config_files=['sql.conf'])
+
+# 确认OK
+print CONF.database.connection
+
+# 开始连接mysql
+engine = sql.create_engine(
+    CONF.database.connection,
+    echo=False
+)
+
+# 连接数据库
+db_session = orm.sessionmaker(bind=engine)
+session = db_session()
+
+# 执行SQL语句
+session.execute('show databases')
+
+from sqlalchemy import Table
+from sqlalchemy import MetaData
+from sqlalchemy import Column
+from sqlalchemy import Integer
+from sqlalchemy import String
+
+# 创建一个表
+metadata = MetaData()
+user_table = Table(
+    'tablename',
+    metadata,
+    Column('id', Integer, primary_key=True),
+    Column('name', String(32), nullable=False)
+)
+
+metadata.create_all(engine)
+
+
+# 映射一个恶表结构到我们定义的对象中
+class User(object):
+    pass
+
+orm.mapper(User, user_table)
+
+u = User()
+u.name = 'zhao'
+# 添加信息
+session.add(u)
+# 刷新数据 [防止读写冲突]
+session.flush()
+# 提交数据
+session.commit()
+
+
+# 查询操作
+query = session.query(User)
+
+# select id from tablname
+print list(query)[0].id
+print list(query)[0].name
+
+# select id,name from tablename where id=3
+# query.get(主键)
+print query.get(3).id
+print query.get(3).name
+
+# select id,name from tablename where name='zhao'
+print query.filter_by(name='zhao').first().id
+print query.order_by('id')
+
+
+
+
+
+from sqlalchemy.ext.declarative import declarative_base
+
+
+
+Base = declarative_base()
+class Person():
+    __tablename__ = 'person'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(32))
+
+    # 只是解释Person使用的,没球用,print <Person class>的时候使用下面
+    def __repr__(self):
+        return "<Person(name='%s')>" % self.name
+
+# person = Person(name = 'zhao')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

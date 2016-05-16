@@ -1,0 +1,39 @@
+1). create a model dir
+ # puppet module generate mymodule
+
+2). move to /etc/puppet/modules
+ # mv mymodule/ /etc/puppet/modules
+
+3). write manifests/init.pp
+ # vim /etc/puppet/modules/mymodule/manifests/init.pp
+
+ class mymodule {
+   file { "/tmp/mymodels":
+     content=>"my first models",
+     mode=>0644,
+   }
+ }
+
+4). start pupetmaster
+ # puppet master --verbose --no-daemonize
+
+5). start puppetclient
+ [clinet]:# puppet agent --server=server2.example.com --verbose --no-daemonize --debug
+
+6). to transport file, puppet:///modules/mymodule/mymodules.conf means "/etc/puppet/modules/files/mymodules.conf"
+ # vim /etc/puppet/modules/mymodule/manifests/init.pp
+
+ class mymodule {
+   file { "/tmp/mymodels":
+     source=>"puppet:///modules/mymodule/mymodules.conf",
+     mode=>0644,
+   }
+ }
+
+7). make sure you have modules/files
+ # mkdir modules/files
+
+8). touch your mymodules.conf
+ # echo 'hello world' > modules/files/mymodules.conf
+
+

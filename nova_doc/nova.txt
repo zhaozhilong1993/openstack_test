@@ -1,0 +1,22 @@
+1) nova的API调用有点特别
+   novaclient -> 
+    -< nova/api/openstack/compute/images.py
+
+    不是nova本身的API的组件的:
+    -< nova/image/api.py [ 这里如果是其他的组件的就开始调用其他组键的wsgi ]
+    是nova本身的API组件,不涉及RPC调用的:
+    -< nova/compute/flavors.py
+      有底层对象需要操作的:
+      -< nova/object/flavor.py/Flavor
+    是nova本身的API组件,涉及RPC调用的: [云主机的开关机，销毁，创建]
+      -< nova/compute/rpcapi.py
+      之后调用:
+      -< nova/server.py/{create/kill/stop}
+
+
+    
+
+
+
+               
+

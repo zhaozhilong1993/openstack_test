@@ -1,0 +1,145 @@
+{
+  "heat_template_version": "2015-10-15",
+  "description   ": "Sample Heat template that spins up multiple instances and a private network (JSON)",
+  "resources  ": {
+    "security_group": {
+      "type": "OS::Senlin::Cluster",
+      "properties": {
+        "desired_capacity": "2",
+        "max_size":"3",
+        "min_size":"1",
+        "name": {"get_param" : "OS::stack_name" },
+        "profile": {"get_resource": "oprofile"}
+      }
+    },
+    "oprofile" : {
+      "type" : "OS::Senlin::Profile",
+      "properties": {
+        "spec": '{ type: os.nova.server, version: 1.0,properties : {name: cirros_server,flavor: m1.tin,image: cirros-0.3.4-x86_64-uec,networks: [{network: private}]}'
+      }
+    }
+  }
+}
+
+{
+'snapshots': [{
+'status': 'COMPLETE',
+'name': None,
+'data': {
+'files': {},
+'status': 'COMPLETE',
+'name': 'bug1',
+'tags': None,
+'stack_user_project_id': '88ffc62063a24a42ae5ec76da6dec120',
+'environment': {
+'encrypted_param_names': [],
+'parameter_defaults': {},
+'event_sinks': [],
+'parameters': {},
+'resource_registry': {
+'resources': {}
+}
+},
+'template': {
+'heat_template_version':
+'2015-10-15',
+'description':
+'HOT template for two interconnected VMs with floating ips.',
+'resources': {
+'server1': {
+'type':
+'OS::Nova::Server',
+'properties': {
+'image':
+'cirros-0.3.4-x86_64-uec',
+'name': 'Server1',
+'flavor':
+'m1.tiny',
+'networks': [{
+'network': '05f44d7b-a6d0-409b-9166-b3795d7826ef'
+}]
+}
+}
+}
+},
+'action': 'SNAPSHOT',
+'project_id': '1acd0026829f4d28bb2eff912d7aad0d',
+'id': '472cdce1-628b-4be7-a607-4aac711eb2e4',
+'resources': {
+'server1': {
+'status': 'COMPLETE',
+'name': 'server1',
+'resource_data': {
+'snapshot_image_id': '52f1e45c-3742-4b94-9dd7-d41a6fc56aeb',
+'external_ports': '[{"id": "cc53b356-ce7c-4bbe-9a14-148be680b1d0"}]'},
+'resource_id': '6a04cdac-a2ff-46dd-b745-7611363aee01',
+'action': 'SNAPSHOT',
+'type': 'OS::Nova::Server',
+'metadata': {}
+}
+}
+},
+'creation_time': '2016-02-19T06:04:15',
+'status_reason': 'Stack SNAPSHOT completed successfully',
+'id': '2cd7c6ce-9f2a-4021-bb13-74039ebf9022'
+},
+{
+'status': 'COMPLETE',
+'name': None,
+'data':
+{
+'files': {},
+'status': 'COMPLETE',
+'name': 'bug1',
+'tags': None,
+'stack_user_project_id': '88ffc62063a24a42ae5ec76da6dec120',
+'environment': {
+'encrypted_param_names': [],
+'parameter_defaults': {},
+'event_sinks': [],
+'parameters': {},
+'resource_registry': {
+'resources': {}
+}
+},
+'template': {
+'heat_template_version': '2015-10-15',
+'description':
+'HOT template for two interconnected VMs with floating ips.',
+'resources': {
+'server1': {
+'type': 'OS::Nova::Server',
+'properties': {
+'image': 'cirros-0.3.4-x86_64-uec',
+'name': 'Server1',
+'flavor': 'm1.tiny',
+'networks': [{
+'network': '05f44d7b-a6d0-409b-9166-b3795d7826ef'
+}]
+}
+}
+}
+},
+'action': 'SNAPSHOT',
+'project_id': '1acd0026829f4d28bb2eff912d7aad0d',
+'id': '472cdce1-628b-4be7-a607-4aac711eb2e4',
+'resources': {
+'server1': {
+'status': 'COMPLETE',
+'name': 'server1',
+'resource_data': {
+'snapshot_image_id': 'ccd3795a-3340-492b-8882-7e4261f3a40b',
+'external_ports': '[{"id": "cc53b356-ce7c-4bbe-9a14-148be680b1d0"}]'},
+'resource_id': '6a04cdac-a2ff-46dd-b745-7611363aee01',
+'action': 'SNAPSHOT',
+'type': 'OS::Nova::Server',
+'metadata': {}
+}
+}
+},
+'creation_time': '2016-02-19T06:23:13',
+'status_reason': 'Stack SNAPSHOT completed successfully',
+'id': 'c0a54be9-d7f2-430b-a15c-4690e7a8a221'
+}
+]
+}

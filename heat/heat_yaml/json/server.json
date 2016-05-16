@@ -1,0 +1,26 @@
+
+
+
+{
+  "heat_template_version": "2015-10-15",
+  "description   ": "Sample Heat template that spins up multiple instances and a private network (JSON)",
+  "resources  ": {
+    "security_group": {
+      "type": "OS::Nova::Server   ",
+      "properties": {
+        "name": "Server1 ",
+        "image":"cirros-0.3.4-x86_64-uec",
+        "flavor":"m1.tiny",
+        "networks": [{
+          "port": {"get_resource" : "instance0_port0" }
+        }]
+      }
+    },
+    "instance0_port0" : {
+      "type" : "OS::Neutron::Port",
+      "properties" : {
+        "network_id" : "05f44d7b-a6d0-409b-9166-b3795d7826ef"
+      }
+    }
+}
+}

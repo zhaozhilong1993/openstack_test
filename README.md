@@ -1,0 +1,1 @@
+# myopenstackWork Doc:1. paste deploy的demo实现2. wobob的demo实现

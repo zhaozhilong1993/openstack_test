@@ -1,0 +1,22 @@
+heat_template_version: 2013-05-23
+
+
+parameters:
+  ports:
+    type: comma_delimited_list
+    label: ports
+    default: "80,443,8080"
+
+resources:
+  security_group:
+    type: OS::Neutron::SecurityGroup
+    properties:
+      name: web_server_security_group
+      rules:
+        - remote_ip_prefix: 0.0.0.0/0
+          protocol: tcp
+          port_range_min: 22
+          port_range_max: 22
+        - remote_ip_prefix: 0.0.0.0/0
+          protocol: icmp
+

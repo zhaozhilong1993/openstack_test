@@ -1,0 +1,2 @@
+官网:
+http://docs.puppetlabs.com/puppet/3.6/reference/modules_fundamentals.html

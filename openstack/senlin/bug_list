@@ -1,0 +1,22 @@
+1). docs error:
+ cluster_create body:
+
+  {'name': u'bug1543722', 'profile_id': u'412fc813-0323-42ff-bacd-e7c874049d27', 'min_size': 1, 'desired_capacity': 2, 'timeout': 60, 'max_size': 3, 'metadata': None}
+
+ online example:
+  {
+    "cluster": {
+        "desired_capacity": 0,
+        "max_size": -1,
+        "metadata": {},
+        "min_size": 0,
+        "name": "test_cluster",
+        "profile_id": "mystack",
+        "timeout": null
+    }
+}
+
+2). responce body diffrent from online docs
+  openstack.cluster.v1.cluster.Cluster(attrs={'min_size': 1, 'desired_capacity': 2, 'name': u'bug1543722', 'timeout': 60, 'headers': {'Content-Length': '594', 'Connection': 'keep-alive', 'Location': 'http://192.168.122.1:8778/v1/clusters/344aca79-7c11-4741-8b2b-629811619ec0', 'Date': 'Mon, 15 Feb 2016 07:55:40 GMT', 'Content-Type': 'application/json; charset=UTF-8', 'X-Openstack-Request-Id': 'req-8c5b2513-b5f4-4efc-8cb2-40f5be677f96'}, 'profile_id': u'412fc813-0323-42ff-bacd-e7c874049d27', 'id': u'344aca79-7c11-4741-8b2b-629811619ec0', 'max_size': 3, 'metadata': None}, loaded=False)
+
+  
