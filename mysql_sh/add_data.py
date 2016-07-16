@@ -5,17 +5,18 @@ import MySQLdb
 import uuid 
 import time
 import random
+import date
 
 
 data = ['cpu_detil','mem_used','disk_io','net_id']
 servers = ['server60','server61','server62','server63','server64']
-start_time = time.time()
+now_date = datetime.date.now()
 
 def insert(uuid=None,name=None, data_type=None, unit=None, time=None):
     try:
         conn=MySQLdb.connect(host='localhost',user='root',passwd='',db='gnocchi',port=3306)
         cur=conn.cursor()
-        cur.execute("insert into test3 values(%s,%s,%s,%s,%s)", [uuid,name,data_type,unit,time])
+        cur.execute("insert into test values(%s,%s,%s,%s,%s)", [uuid,name,data_type,unit,time])
 	conn.commit()
         cur.close()
         conn.close()
@@ -26,10 +27,11 @@ def insert(uuid=None,name=None, data_type=None, unit=None, time=None):
 
 def create_time():
     global start_time
-    next_time = start_time + 5
-    start_time = next_time
-    return int(start_time)
-    
+    start_time = datetime.date.today()
+    # +5 s
+    next_time = start_time + datetime.timedelta(seconds=5) 
+    # return 
+     
 
 def insert_many():
     while 1:

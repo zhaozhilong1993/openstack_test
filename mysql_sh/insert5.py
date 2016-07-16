@@ -9,7 +9,7 @@ import random
 
 data = ['cpu_detil','mem_used','disk_io','net_id']
 servers = ['server60','server61','server62','server63','server64']
-start_time = time.time()
+start_time = time.time() + (365*24*60*60) * 2 
 
 def insert(uuid=None,name=None, data_type=None, unit=None, time=None):
     try:
